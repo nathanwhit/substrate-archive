@@ -7,7 +7,5 @@ members = [
   "work-queue/integration_tests/",
   "test-common",
   "test-common/test-wasm",
-  "bin/polkadot-archive",
-  "bin/node-template-archive"
+  "bin/creditcoin-archive",
 ]
-

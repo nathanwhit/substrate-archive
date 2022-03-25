@@ -1,0 +1,23 @@
+[package]
+name = "creditcoin-archive"
+version = "0.3.0"
+authors = ["Parity Technologies <admin@parity.io>"]
+edition = "2021"
+rust-version = "1.56.1"
+description = "Indexes the Polkadot, Kusama and Westend Networks"
+
+[dependencies]
+anyhow = "1.0"
+clap = { version = "2.33.1", features = ["yaml", "suggestions", "color"] }
+ctrlc = { version = "3.1.5", features = ["termination"] }
+log = "0.4"
+serde = "1.0"
+structopt = { version = "0.3", features = ["suggestions", "color"] }
+toml = "0.5"
+
+sp-io = { git = "https://github.com/paritytech/substrate", branch = "master" }
+creditcoin-node-runtime = { git = "https://github.com/nathanwhit/creditcoin-substrate", branch = "substrate-master" }
+sc-chain-spec = { git = "https://github.com/paritytech/substrate", branch = "master" }
+
+substrate-archive = { path = "../../substrate-archive" }
+argh = "0.1.7"

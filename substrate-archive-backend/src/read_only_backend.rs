@@ -35,7 +35,7 @@ use hash_db::Prefix;
 use kvdb::DBValue;
 
 use sc_client_api::backend::StateBackend;
-use sc_service::TransactionStorageMode;
+// use sc_service::TransactionStorageMode;
 use sp_blockchain::{Backend as _, HeaderBackend as _};
 use sp_runtime::{
 	generic::{BlockId, SignedBlock},
@@ -50,7 +50,7 @@ use crate::{database::ReadOnlyDb, error::Result, util::columns};
 pub struct ReadOnlyBackend<Block, D> {
 	db: Arc<D>,
 	storage: Arc<StateVault<Block, D>>,
-	storage_mode: TransactionStorageMode,
+	// storage_mode: TransactionStorageMode,
 }
 
 impl<Block, D> ReadOnlyBackend<Block, D>
@@ -59,9 +59,9 @@ where
 	Block::Header: HeaderT,
 	D: ReadOnlyDb + 'static,
 {
-	pub fn new(db: Arc<D>, prefix_keys: bool, storage_mode: TransactionStorageMode) -> Self {
+	pub fn new(db: Arc<D>, prefix_keys: bool) -> Self {
 		let vault = Arc::new(StateVault::new(db.clone(), prefix_keys));
-		Self { db, storage: vault, storage_mode }
+		Self { db, storage: vault }
 	}
 
 	/// get a reference to the backing database
