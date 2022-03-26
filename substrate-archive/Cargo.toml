@@ -51,17 +51,17 @@ codec = { package = "parity-scale-codec", version = "3.1", default-features = fa
     "derive",
     "full",
 ] }
-sc-chain-spec = { git = "https://github.com/paritytech/substrate", branch = "master" }
-sc-client-api = { git = "https://github.com/paritytech/substrate", branch = "master" }
-sc-executor = { git = "https://github.com/paritytech/substrate", branch = "master" }
-sp-api = { git = "https://github.com/paritytech/substrate", branch = "master" }
-sp-blockchain = { git = "https://github.com/paritytech/substrate", branch = "master" }
-sp-block-builder = { git = "https://github.com/paritytech/substrate", branch = "master" }
-sp-core = { git = "https://github.com/paritytech/substrate", branch = "master" }
-sp-runtime = { git = "https://github.com/paritytech/substrate", branch = "master" }
-sp-tracing = { git = "https://github.com/paritytech/substrate", branch = "master" }
-sp-storage = { git = "https://github.com/paritytech/substrate", branch = "master" }
-sp-wasm-interface = { git = "https://github.com/paritytech/substrate", branch = "master" }
+sc-chain-spec = { git = "https://github.com/nathanwhit/substrate", branch = "creditcoin" }
+sc-client-api = { git = "https://github.com/nathanwhit/substrate", branch = "creditcoin" }
+sc-executor = { git = "https://github.com/nathanwhit/substrate", branch = "creditcoin" }
+sp-api = { git = "https://github.com/nathanwhit/substrate", branch = "creditcoin" }
+sp-blockchain = { git = "https://github.com/nathanwhit/substrate", branch = "creditcoin" }
+sp-block-builder = { git = "https://github.com/nathanwhit/substrate", branch = "creditcoin" }
+sp-core = { git = "https://github.com/nathanwhit/substrate", branch = "creditcoin" }
+sp-runtime = { git = "https://github.com/nathanwhit/substrate", branch = "creditcoin" }
+sp-tracing = { git = "https://github.com/nathanwhit/substrate", branch = "creditcoin" }
+sp-storage = { git = "https://github.com/nathanwhit/substrate", branch = "creditcoin" }
+sp-wasm-interface = { git = "https://github.com/nathanwhit/substrate", branch = "creditcoin" }
 
 # Workspace
 substrate-archive-backend = { path = '../substrate-archive-backend' }

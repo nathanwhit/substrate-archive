@@ -7,18 +7,14 @@ build = "build.rs"
 publish = false
 
 [build-dependencies]
-substrate-wasm-builder = { git = "https://github.com/paritytech/substrate", branch = "master" }
+substrate-wasm-builder = { git = "https://github.com/nathanwhit/substrate", branch = "creditcoin" }
 
 [dependencies]
-sp-core = { default-features = false, git = "https://github.com/paritytech/substrate", branch = "master" }
-sp-io = { default-features = false, git = "https://github.com/paritytech/substrate", branch = "master" }
-sp-runtime = { default-features = false, git = "https://github.com/paritytech/substrate", branch = "master" }
+sp-core = { default-features = false, git = "https://github.com/nathanwhit/substrate", branch = "creditcoin" }
+sp-io = { default-features = false, git = "https://github.com/nathanwhit/substrate", branch = "creditcoin" }
+sp-runtime = { default-features = false, git = "https://github.com/nathanwhit/substrate", branch = "creditcoin" }
 tracing = { version = "0.1.29", default-features = false }
 
 [features]
-default = [ "std" ]
-std = [
-	"sp-core/std",
-	"sp-io/std",
-	"sp-runtime/std",
-]
+default = ["std"]
+std = ["sp-core/std", "sp-io/std", "sp-runtime/std"]

@@ -15,9 +15,9 @@ serde = "1.0"
 structopt = { version = "0.3", features = ["suggestions", "color"] }
 toml = "0.5"
 
-sp-io = { git = "https://github.com/paritytech/substrate", branch = "master" }
-creditcoin-node-runtime = { git = "https://github.com/nathanwhit/creditcoin-substrate", branch = "substrate-master" }
-sc-chain-spec = { git = "https://github.com/paritytech/substrate", branch = "master" }
+sp-io = { git = "https://github.com/nathanwhit/substrate", branch = "creditcoin" }
+creditcoin-node-runtime = { git = "https://github.com/nathanwhit/creditcoin-substrate", branch = "substrate-updated" }
+sc-chain-spec = { git = "https://github.com/nathanwhit/substrate", branch = "creditcoin" }
 
 substrate-archive = { path = "../../substrate-archive" }
 argh = "0.1.7"
