@@ -141,7 +141,7 @@ impl<Hash: Copy> From<BatchStorage<Hash>> for Vec<StorageModel<Hash>> {
 	}
 }
 
-#[derive(Debug, Serialize, FromRow)]
+#[derive(Debug, Serialize, Deserialize, FromRow)]
 pub struct ExtrinsicsModel {
 	pub id: Option<i32>,
 	pub hash: Vec<u8>,

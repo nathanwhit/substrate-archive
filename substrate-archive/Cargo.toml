@@ -44,7 +44,7 @@ async-stream = "0.3"
 semver = "1.0"
 
 # Parity
-desub = { package = "desub", git = "https://github.com/nathanwhit/desub", branch = "update-deps", features = [
+desub = { package = "desub", git = "https://github.com/nathanwhit/desub", branch = "creditcoin", features = [
     "polkadot-js",
 ] }
 codec = { package = "parity-scale-codec", version = "3.1", default-features = false, features = [
