@@ -19,9 +19,11 @@ pub mod database;
 pub mod extrinsics_decoder;
 mod metadata;
 pub mod storage_aggregator;
+pub mod storage_decoder;
 
 pub use self::database::DatabaseActor;
 pub use self::metadata::MetadataActor;
 pub use blocks::BlocksIndexer;
 pub use extrinsics_decoder::ExtrinsicsDecoder;
 pub use storage_aggregator::StorageAggregator;
+pub use storage_decoder::StorageDecoder;

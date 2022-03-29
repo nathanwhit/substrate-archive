@@ -449,6 +449,44 @@ impl Insert for Vec<ExtrinsicsModel> {
 	}
 }
 
+#[async_trait::async_trait]
+impl Insert for Vec<DecodedStorageModel> {
+	async fn insert(mut self, conn: &mut DbConn) -> DbReturn {
+		let mut batch = Batch::new(
+			"decoded_storage",
+			r#"
+			INSERT INTO "decoded_storage" (
+				raw_storage_id, hash, block_num, module, name, entry
+			) VALUES
+			"#,
+			r#"
+			ON CONFLICT DO NOTHING
+			"#,
+		);
+
+		for storage in self.into_iter() {
+			batch.reserve(4)?;
+			if batch.current_num_arguments() > 0 {
+				batch.append(",");
+			}
+			batch.append("(");
+			batch.bind(storage.raw_storage_id)?;
+			batch.append(",");
+			batch.bind(storage.hash.as_slice())?;
+			batch.append(",");
+			batch.bind(storage.block_num)?;
+			batch.append(",");
+			batch.bind(storage.module)?;
+			batch.append(",");
+			batch.bind(storage.name)?;
+			batch.append(",");
+			batch.bind(storage.entry)?;
+			batch.append(")");
+		}
+		Ok(batch.execute(conn).await?)
+	}
+}
+
 // Chrono depends on an error type in `time` that is a full version behind the one that SQLX uses
 // This function avoids depending on two time lib.
 // Old time is disabled in chrono by not providing the feature flag in Cargo.toml.

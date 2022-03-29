@@ -165,6 +165,7 @@ struct Actors<Block: Send + Sync + 'static, Hash: Send + Sync + 'static, Db: Sen
 	metadata: Address<workers::MetadataActor<Block>>,
 	db: Address<DatabaseActor>,
 	extrinsics: Address<ExtrinsicsDecoder>,
+	decoded_storage: Address<workers::StorageDecoder>,
 }
 
 impl<Block: Send + Sync + 'static, Hash: Send + Sync + 'static, Db: Send + Sync + 'static> Clone
@@ -177,6 +178,7 @@ impl<Block: Send + Sync + 'static, Hash: Send + Sync + 'static, Db: Send + Sync 
 			metadata: self.metadata.clone(),
 			db: self.db.clone(),
 			extrinsics: self.extrinsics.clone(),
+			decoded_storage: self.decoded_storage.clone(),
 		}
 	}
 }
@@ -195,8 +197,9 @@ where
 			workers::MetadataActor::new(db.clone(), conf.meta().clone()).await?.create(None).spawn(&mut AsyncStd);
 		let blocks = workers::BlocksIndexer::new(conf, db.clone(), metadata.clone()).create(None).spawn(&mut AsyncStd);
 		let extrinsics = workers::ExtrinsicsDecoder::new(conf, db.clone()).await?.create(None).spawn(&mut AsyncStd);
+		let decoded_storage = workers::StorageDecoder::new(conf, db.clone()).await?.create(None).spawn(&mut AsyncStd);
 
-		Ok(Actors { storage, blocks, metadata, db, extrinsics })
+		Ok(Actors { storage, blocks, metadata, db, extrinsics, decoded_storage })
 	}
 
 	/// Run a future that sends actors a signal to progress once the previous
@@ -212,8 +215,9 @@ where
 					Box::pin(actors.storage.send(SendStorage)),
 					Box::pin(actors.storage.send(SendTraces)),
 					Box::pin(actors.extrinsics.send(Index)),
+					Box::pin(actors.decoded_storage.send(workers::storage_decoder::Index)),
 				);
-				if future::try_join4(fut.0, fut.1, fut.2, fut.3).await.is_err() {
+				if future::try_join5(fut.0, fut.1, fut.2, fut.3, fut.4).await.is_err() {
 					break;
 				}
 			}

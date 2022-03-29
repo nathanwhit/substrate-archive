@@ -25,7 +25,10 @@ use codec::{Decode, Encode, Error as DecodeError};
 use serde::{Deserialize, Serialize};
 use sqlx::{types::Json, FromRow, PgConnection, Postgres};
 
-use desub::{types::LegacyOrCurrentExtrinsic, Chain};
+use desub::{
+	types::{LegacyOrCurrentExtrinsic, LegacyOrCurrentStorage},
+	Chain,
+};
 use sc_executor::RuntimeVersion;
 use sp_runtime::{
 	generic::SignedBlock,
@@ -138,6 +141,31 @@ impl<Hash: Copy> From<Storage<Hash>> for Vec<StorageModel<Hash>> {
 impl<Hash: Copy> From<BatchStorage<Hash>> for Vec<StorageModel<Hash>> {
 	fn from(original: BatchStorage<Hash>) -> Vec<StorageModel<Hash>> {
 		original.inner.into_iter().flat_map(Vec::<StorageModel<Hash>>::from).collect()
+	}
+}
+
+#[derive(Debug, Serialize, FromRow)]
+pub struct DecodedStorageModel {
+	pub id: Option<i32>,
+	pub raw_storage_id: i32,
+	pub hash: Vec<u8>,
+	pub block_num: u32,
+	pub module: String,
+	pub name: String,
+	pub entry: Json<LegacyOrCurrentStorage>,
+}
+
+impl DecodedStorageModel {
+	pub fn new(raw_storage_id: i32, hash: Vec<u8>, block_num: u32, entry: LegacyOrCurrentStorage) -> Self {
+		Self {
+			id: None,
+			module: entry.module(),
+			name: entry.name(),
+			raw_storage_id,
+			hash,
+			block_num,
+			entry: Json(entry),
+		}
 	}
 }
 

@@ -1240,7 +1240,7 @@ dependencies = [
 [[package]]
 name = "creditcoin-node-runtime"
 version = "2.0.0-beta.5"
-source = "git+https://github.com/nathanwhit/creditcoin-substrate?branch=substrate-updated#677af7f3fc31e71dbbcafa8b745e7b2a62103b79"
+source = "git+https://github.com/nathanwhit/creditcoin-substrate?branch=substrate-updated#e6951b0371e957f172d4b8f64e1dac7d89ebb6a9"
 dependencies = [
  "frame-executive",
  "frame-support",
@@ -1503,7 +1503,7 @@ dependencies = [
 [[package]]
 name = "desub"
 version = "0.1.0"
-source = "git+https://github.com/nathanwhit/desub?branch=creditcoin#7efae8099b41063b20e0e2207fc7d2b3b5e01fb1"
+source = "git+https://github.com/nathanwhit/desub?branch=creditcoin#7e5ed38ac75e05b8fd4f44a2da6b346c34dd774a"
 dependencies = [
  "desub-common",
  "desub-current",
@@ -1518,7 +1518,7 @@ dependencies = [
 [[package]]
 name = "desub-common"
 version = "0.1.0"
-source = "git+https://github.com/nathanwhit/desub?branch=creditcoin#7efae8099b41063b20e0e2207fc7d2b3b5e01fb1"
+source = "git+https://github.com/nathanwhit/desub?branch=creditcoin#7e5ed38ac75e05b8fd4f44a2da6b346c34dd774a"
 dependencies = [
  "serde",
  "sp-core",
@@ -1528,7 +1528,7 @@ dependencies = [
 [[package]]
 name = "desub-current"
 version = "0.1.0"
-source = "git+https://github.com/nathanwhit/desub?branch=creditcoin#7efae8099b41063b20e0e2207fc7d2b3b5e01fb1"
+source = "git+https://github.com/nathanwhit/desub?branch=creditcoin#7e5ed38ac75e05b8fd4f44a2da6b346c34dd774a"
 dependencies = [
  "bitvec",
  "derive_more",
@@ -1548,7 +1548,7 @@ dependencies = [
 [[package]]
 name = "desub-json-resolver"
 version = "0.0.1"
-source = "git+https://github.com/nathanwhit/desub?branch=creditcoin#7efae8099b41063b20e0e2207fc7d2b3b5e01fb1"
+source = "git+https://github.com/nathanwhit/desub?branch=creditcoin#7e5ed38ac75e05b8fd4f44a2da6b346c34dd774a"
 dependencies = [
  "desub-legacy",
  "log",
@@ -1563,7 +1563,7 @@ dependencies = [
 [[package]]
 name = "desub-legacy"
 version = "0.1.0"
-source = "git+https://github.com/nathanwhit/desub?branch=creditcoin#7efae8099b41063b20e0e2207fc7d2b3b5e01fb1"
+source = "git+https://github.com/nathanwhit/desub?branch=creditcoin#7e5ed38ac75e05b8fd4f44a2da6b346c34dd774a"
 dependencies = [
  "bitvec",
  "derive_more",
@@ -4589,7 +4589,7 @@ dependencies = [
 [[package]]
 name = "pallet-creditcoin"
 version = "2.0.0-beta.5"
-source = "git+https://github.com/nathanwhit/creditcoin-substrate?branch=substrate-updated#677af7f3fc31e71dbbcafa8b745e7b2a62103b79"
+source = "git+https://github.com/nathanwhit/creditcoin-substrate?branch=substrate-updated#e6951b0371e957f172d4b8f64e1dac7d89ebb6a9"
 dependencies = [
  "ethabi",
  "ethereum-types",
@@ -4616,7 +4616,7 @@ dependencies = [
 [[package]]
 name = "pallet-difficulty"
 version = "2.0.0-beta.5"
-source = "git+https://github.com/nathanwhit/creditcoin-substrate?branch=substrate-updated#677af7f3fc31e71dbbcafa8b745e7b2a62103b79"
+source = "git+https://github.com/nathanwhit/creditcoin-substrate?branch=substrate-updated#e6951b0371e957f172d4b8f64e1dac7d89ebb6a9"
 dependencies = [
  "frame-benchmarking",
  "frame-support",
@@ -4645,7 +4645,7 @@ dependencies = [
 [[package]]
 name = "pallet-rewards"
 version = "2.0.0-beta.5"
-source = "git+https://github.com/nathanwhit/creditcoin-substrate?branch=substrate-updated#677af7f3fc31e71dbbcafa8b745e7b2a62103b79"
+source = "git+https://github.com/nathanwhit/creditcoin-substrate?branch=substrate-updated#e6951b0371e957f172d4b8f64e1dac7d89ebb6a9"
 dependencies = [
  "frame-benchmarking",
  "frame-support",
@@ -5162,9 +5162,10 @@ dependencies = [
 [[package]]
 name = "primitives"
 version = "2.0.0-beta.5"
-source = "git+https://github.com/nathanwhit/creditcoin-substrate?branch=substrate-updated#677af7f3fc31e71dbbcafa8b745e7b2a62103b79"
+source = "git+https://github.com/nathanwhit/creditcoin-substrate?branch=substrate-updated#e6951b0371e957f172d4b8f64e1dac7d89ebb6a9"
 dependencies = [
  "sp-core",
+ "sp-runtime",
 ]
 
 [[package]]

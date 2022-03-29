@@ -50,7 +50,7 @@ struct BlockNum {
 	block_num: i32,
 }
 
-// Return type of queries that `SELECT block_num, ext`
+// Return type of queries that `SELECT block_num, hash, ext, spec`
 struct BlockExtrinsics {
 	block_num: i32,
 	hash: Vec<u8>,
@@ -76,6 +76,15 @@ struct PastAndPresentVersion {
 	pub past: Option<i32>,
 	pub metadata: Vec<u8>,
 	pub past_metadata: Option<Vec<u8>>,
+}
+
+struct StorageEntry {
+	raw_storage_id: Option<i32>,
+	hash: Option<Vec<u8>>,
+	block_num: Option<i32>,
+	key: Option<Vec<u8>>,
+	value: Option<Vec<u8>>,
+	spec: Option<i32>,
 }
 
 /// Get missing blocks from the relational database between numbers `min` and
@@ -255,6 +264,31 @@ pub(crate) async fn blocks_missing_extrinsics(
 	.collect();
 
 	Ok(blocks)
+}
+
+pub(crate) async fn storage_missing_decoded_storage(
+	conn: &mut PgConnection,
+	limit: u32,
+) -> Result<Vec<(i32, Vec<u8>, u32, Vec<u8>, Option<Vec<u8>>, u32)>> {
+	let entries = sqlx::query_as!(
+		StorageEntry,
+		r#"
+		SELECT storage.id AS raw_storage_id, storage.hash, storage.block_num, storage.key, storage.storage AS value, blocks.spec FROM storage 
+		JOIN blocks ON blocks.hash = storage.hash 
+		WHERE NOT EXISTS
+			(SELECT raw_storage_id FROM decoded_storage WHERE raw_storage_id = storage.id)
+		ORDER BY raw_storage_id ASC
+		LIMIT $1
+		"#,
+		i64::from(limit)
+	)
+	.fetch_all(conn)
+	.await?
+	.into_iter()
+	.map(|e| (e.raw_storage_id.unwrap(), e.hash.unwrap(), e.block_num.unwrap() as u32, e.key.unwrap(), e.value, e.spec.unwrap() as u32))
+	.collect();
+
+	Ok(entries)
 }
 
 /// Get upgrade blocks starting from a spec.
