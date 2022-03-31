@@ -15,10 +15,7 @@
 
 mod cli_opts;
 
-use std::sync::{
-	atomic::{AtomicBool, Ordering},
-	Arc,
-};
+use std::sync::{Arc, Condvar, Mutex};
 
 use creditcoin_node_runtime::{opaque::Block, RuntimeApi};
 
@@ -33,14 +30,22 @@ fn main() -> anyhow::Result<()> {
 		.build()?;
 	archive.drive()?;
 
-	let running = Arc::new(AtomicBool::new(true));
-	let r = running.clone();
+	let pair = Arc::new((Mutex::new(false), Condvar::new()));
+	let pair2 = pair.clone();
 
 	ctrlc::set_handler(move || {
-		r.store(false, Ordering::SeqCst);
+		let (lock, cvar) = &*pair2;
+		let mut stop = lock.lock().unwrap();
+		*stop = true;
+		cvar.notify_one();
 	})
 	.expect("Error setting Ctrl-C handler");
-	while running.load(Ordering::SeqCst) {}
+
+	let (lock, cvar) = &*pair;
+	let mut stop = lock.lock().unwrap();
+	while !*stop {
+		stop = cvar.wait(stop).unwrap();
+	}
 	archive.shutdown()?;
 	Ok(())
 }
